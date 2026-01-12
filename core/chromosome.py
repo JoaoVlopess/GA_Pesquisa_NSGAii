@@ -62,9 +62,9 @@ class cromossomo:
         """
         self.valores = self.decodificar_binario()
 
-        self.f1 = calcular_f1(self.x_real)
-        self.f2 = calcular_f2(self.x_real)
-        self.viol_total = checar_restricoes(self.x_real, self.lim_inf, self.lim_sup)
+        self.f1 = calcular_f1(self.valores)
+        self.f2 = calcular_f2(self.valores)
+        self.viol_total = checar_restricoes(self.valores)
 
         self.rank = 0
         self.crowding_distance = 0.0

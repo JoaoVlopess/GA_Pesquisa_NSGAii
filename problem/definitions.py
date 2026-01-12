@@ -4,44 +4,14 @@ import os
 import subprocess
 import time
 
-# Constantes
-CAMINHO_ABAQUS = "abaqus" # Ou o caminho completo para o executável .bat do Abaqus
+# Caminhos
+CAMINHO_SCRIPT_ABAQUS = r"C:\Users\caioj\OneDrive\Área de Trabalho\pesquisa\nsga2_first\IntegracaoAbaqus.py"
+CAMINHO_ABAQUS = "abaqus" 
 DIRETORIO_TRABALHO = r"C:\TestPython"
 ARQUIVO_INPUT = os.path.join(DIRETORIO_TRABALHO, "input_params.txt")
 ARQUIVO_OUTPUT = os.path.join(DIRETORIO_TRABALHO, "output_result.txt")
 
-# DIMENSIONS
-R_base = 7000
-R_pedestal = 2000.0
-Hi_base = 500.0
-Hf_base = 2000.0
-H_pedestal = 2000.0
-Size_mesh = 1500
-
-# MATERIAL
-GamaC = 30  # kN/m³
-GamaS = 18  # kN/m³
-qd = 2406.44
-
-#VALUES FOR ABAQUS
-density = 25000.0
-young_modulus = 5600 * math.sqrt(GamaC) * 1000000
-poisson = 0.2
-
-#IMPUT - LOADS
-Fres = 750  # kN.m    #HORIZONTAL LOAD
-Fz = 2940  # kN       #VERTICAL LOAD
-Mres = 64215  # kN.m  #BENDING MOMENT
-Mz = 3060  # kN.m     #TWISTING MOMENT
-t = 0.6  # m - HEIGHT FROM THE GROUND TO THE POINT WHERE LOADS ARE DEFINED
-
-#VALUES FOR ABAQUS
-Load_Fx = 0           #HORIZONTAL LOAD
-Load_Fy = 750000      #HORIZONTAL LOAD
-Load_Fz = -2940000    #VERTICAL LOAD
-Load_Mx = -64215000   #BENDING MOMENT
-Load_My = 0           #BENDING MOMENT
-Load_Mz = 3060000     #TWISTING MOMENT
+QD_LIMITE = 2.406
 
 
 def calcular_f1(valores):
@@ -64,7 +34,7 @@ def calcular_f2(valores):
 
     # 2. Chama o Abaqus em modo noGUI para rodar o script do professor
     # O comando abaixo assume que o script do professor foi adaptado para ler o TXT
-    comando = f'{CAMINHO_ABAQUS} cae noGUI=IntegracaoAbaqus.py'
+    comando = f'{CAMINHO_ABAQUS} cae noGUI="{CAMINHO_SCRIPT_ABAQUS}"'
     
     try:
         # Executa e espera terminar
@@ -81,16 +51,21 @@ def calcular_f2(valores):
         return 999999.0 # Penalidade alta se a simulação falhar
 
 def checar_restricoes(valores):
-    """Retorna a soma das violações"""
     R_base, R_ped, Hi, Hf, H_ped = valores
     v = 0
     
-    # 1. Raio da base deve ser maior que o do pedestal (margem de 500mm)
-    if R_base < (R_ped + 500):
-        v += abs((R_ped + 500) - R_base)
-        
-    # 2. Espessura no centro deve ser maior que na borda
-    if Hf < Hi:
-        v += abs(Hi - Hf)
-        
+    # 1. Restrições Geométricas (Já tínhamos)
+    if R_base < (R_ped + 500): v += abs((R_ped + 500) - R_base)
+    if Hf < Hi: v += abs(Hi - Hf)
+    
+    # 2. Restrição de Pressão no Solo (Usando qd)
+    # Pressão = Força Vertical / Área da Base
+    area_base = math.pi * (R_base**2)
+    forca_total = abs(2940 * 1000) # Fz em Newtons
+    pressao_solo = forca_total / area_base
+    
+    if pressao_solo > QD_LIMITE:
+        # Se a pressão no solo for maior que o qd, temos uma violação!
+        v += (pressao_solo - QD_LIMITE) * 1000 
+
     return v

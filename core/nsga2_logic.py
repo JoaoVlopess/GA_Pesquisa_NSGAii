@@ -3,13 +3,17 @@ from typing import List
 from core.chromosome import cromossomo
 
 def criar_populacao_inicial(tamanho):
-    """
-    Gera a População Inicial (Geração Zero)
-    """
     populacao = []
+    # Definimos os limites reais aqui para passar ao cromossomo
+    limites_reais = [
+        (5000, 12000), (1500, 3000), (400, 1000), 
+        (1500, 3500), (1000, 3000)
+    ]
     for _ in range(tamanho):
-        populacao.append(cromossomo()) 
+        # Passamos 8 bits por gene e a lista de limites
+        populacao.append(cromossomo(n_bits_por_gene=8, limites=limites_reais))
     return populacao
+
 
 def domina(X_A: cromossomo, X_B: cromossomo):
   """

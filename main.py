@@ -1,10 +1,10 @@
 from core.nsga2_logic import criar_populacao_inicial, classificar_populacao_rank, calcular_crowding_distance_todas_frentes, selecao_elitista
 from core.operators import selecao_pais, cruzamento_dois_pontos, mutacao_bit_flip
 
-TAMANHO_POP = 60
-GERACOES = 100
+TAMANHO_POP = 2
+GERACOES = 1
 PC = 0.8 
-PM = 0.05
+PM = 0.1
 
 if __name__ == '__main__':
     populacao = criar_populacao_inicial(TAMANHO_POP)
@@ -27,6 +27,8 @@ if __name__ == '__main__':
     frente_pareto = [ind for ind in populacao if ind.rank == 1]
     frente_pareto.sort(key=lambda x: x.f1) 
 
-    print("\n--- Top 5 Soluções na Frente de Pareto ---")
-    for i, ind in enumerate(frente_pareto[:5], 1):
-        print(f"{i}. x={ind.x_real:.3f} | f1={ind.f1:.3f} | f2={ind.f2:.3f}")
+print("\n--- Top 5 Soluções na Frente de Pareto ---")
+for i, ind in enumerate(frente_pareto[:5], 1):
+    # ind.valores contém [R_base, R_ped, Hi, Hf, H_ped]
+    r_b, r_p, hi, hf, hp = ind.valores 
+    print(f"{i}. R_base={r_b:7.1f} | R_ped={r_p:7.1f} | f1={ind.f1:8.2f} | f2={ind.f2:.8f}")

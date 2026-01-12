@@ -24,6 +24,8 @@ import displayGroupOdbToolset as dgo
 import connectorBehavior
 import shutil
 import math
+from odbAccess import openOdb
+
 
 # CHANGE WORK DIRECTORY
 path = r"C:\TestPython"
@@ -32,39 +34,31 @@ os.chdir(path)
 # VERY IMPORTANT
 session.journalOptions.setValues(replayGeometry=COORDINATE, recoverGeometry=COORDINATE)
 
-#INPUTS - DIMENSIONS
-R_base = 7000
-R_pedestal = 2000.0
-Hi_base = 500.0
-Hf_base = 2000.0
-H_pedestal = 2000.0
-Size_mesh = 1500
-
-#INPUTS - MATERIAL
-GamaC = 30  # kN/m³
-GamaS = 18  # kN/m³
-qd = 2406.44
-#VALUES FOR ABAQUS  - all fixed values
-density = 25000.0
-young_modulus = 5600 * math.sqrt(GamaC) * 1000000
-poisson = 0.2
-
-#IMPUT - LOADS
-Fres = 750  # kN.m    #HORIZONTAL LOAD
-Fz = 2940  # kN       #VERTICAL LOAD
-Mres = 64215  # kN.m  #BENDING MOMENT
-Mz = 3060  # kN.m     #TWISTING MOMENT
-t = 0.6  # m - HEIGHT FROM THE GROUND TO THE POINT WHERE LOADS ARE DEFINED
-#VALUES FOR ABAQUS
-Load_Fx = 0           #HORIZONTAL LOAD
-Load_Fy = 750000      #HORIZONTAL LOAD
-Load_Fz = -2940000    #VERTICAL LOAD
-Load_Mx = -64215000   #BENDING MOMENT
-Load_My = 0           #BENDING MOMENT
-Load_Mz = 3060000     #TWISTING MOMENT
-
 
 def CalculateDisplacement():
+    with open("input_params.txt", "r") as f:
+        params = f.read().split(",")
+        R_base = float(params[0])
+        R_pedestal = float(params[1])
+        Hi_base = float(params[2])
+        Hf_base = float(params[3])
+        H_pedestal = float(params[4])
+    Size_mesh = 1000
+
+    Size_mesh = 1000
+    GamaC = 30  # fck em MPa
+    density = 2.5e-9  # Ton/mm3 (equivalente a 2500 kg/m3)
+    young_modulus = 5600 * math.sqrt(GamaC)  # Resultado em MPa (~30672)
+    poisson = 0.2
+
+    # CARREGAMENTOS EM NEWTON (N) E NEWTON-MILÍMETRO (N.mm)
+    Load_Fx = 0.0
+    Load_Fy = 750 * 1000            # 750.000 N
+    Load_Fz = -2940 * 1000          # -2.940.000 N
+    Load_Mx = -64215 * 1000000      # -64.215.000.000 N.mm
+    Load_My = 0.0
+    Load_Mz = 3060 * 1000000        # 3.060.000.000 N.mm
+    CurrentFolder = r"C:\TestPython"
     Mdb()
 
     #CREATES MATERIAL
@@ -364,31 +358,44 @@ def CalculateDisplacement():
     mdb.jobs['Job-1'].waitForCompletion()
     print("Job-1 finished running")
 
-    CurrentFolder = os.getcwd()
+    odb_path = 'Job-1.odb'
+    odb = openOdb(path=odb_path)
 
-    #THIS OPENS THE ODB - Output Database
-    session.mdbData.summary()
-    odb = session.openOdb(str(CurrentFolder) + '/' + 'Job-1.odb')
-    session.viewports['Viewport: 1'].setValues(displayedObject=odb)
-    session.viewports['Viewport: 1'].makeCurrent()
-    '''(odb.steps['Step-1'].frames[1].fieldOutputs['U'].values[1].data[2])'''
+    # 2. Acessa o último frame do passo de carga (Step-1)
+    # Verifique se o nome do Step no seu script é 'Step-1'
+    last_frame = odb.steps['Step-1'].frames[-1]
 
-    #THIS GET THE DISPLACEMENTS
-    '''frame = 0 is the initial step - frame = 1 is the first fully calculated step'''
-    Disps = odb.steps['Step-1'].frames[1].fieldOutputs['U'].getSubset(position=NODAL).bulkDataBlocks[0].data
-    MaxDisps = np.max(np.abs(Disps), axis=0)
-    MaxU3 = MaxDisps[2]
+    # 3. Pega os deslocamentos (U)
+    displacements = last_frame.fieldOutputs['U']
+
+    # 4. Encontra o deslocamento máximo em magnitude (mais robusto)
+    max_displacement = 0.0
+    for v in displacements.values:
+        # v.magnitude pega o deslocamento resultante (vetor x,y,z)
+        if v.magnitude > max_displacement:
+            max_displacement = v.magnitude
+
+    # 5. Salva o resultado para o seu NSGA-II
+    # Usamos o caminho absoluto para evitar erro de pasta
+    with open(r"C:\TestPython\output_result.txt", "w") as f:
+        f.write("{:.10f}".format(max_displacement))
 
     odb.close()
-    print(MaxU3)
+    print("Simulacao concluida. MaxU3 escrito com sucesso.")
+    print("Simulacao concluida. Valor maximo encontrado: " + str(max_displacement))
+
 
     if os.path.exists("%s/%s" % (str(CurrentFolder), "Job-1.simdir")):
         shutil.rmtree("%s/%s" % (str(CurrentFolder), "Job-1.simdir"))
 
     for fname in os.listdir(CurrentFolder):
-        if fname.startswith("Job-1") and not fname.endswith(".inp"):
-            os.remove(os.path.join(CurrentFolder, fname))
+        if fname.startswith("Job-1") and not fname.endswith(".txt"):
+            try:
+                os.remove(os.path.join(CurrentFolder, fname))
+            except:
+                pass
 
-    return MaxU3
+    return True
 
-resultado = CalculateDisplacement()
+if __name__ == "__main__":
+    CalculateDisplacement()
