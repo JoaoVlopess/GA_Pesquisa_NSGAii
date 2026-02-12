@@ -1,8 +1,8 @@
 from core.nsga2_logic import criar_populacao_inicial, classificar_populacao_rank, calcular_crowding_distance_todas_frentes, selecao_elitista
 from core.operators import selecao_pais, cruzamento_dois_pontos, mutacao_bit_flip
 
-TAMANHO_POP = 2
-GERACOES = 1
+TAMANHO_POP = 20
+GERACOES = 10
 PC = 0.8 
 PM = 0.1
 
