@@ -5,11 +5,23 @@ import subprocess
 import time
 
 # Caminhos
-CAMINHO_SCRIPT_ABAQUS = r"C:\Users\caioj\OneDrive\Área de Trabalho\pesquisa\nsga2_first\IntegracaoAbaqus.py"
-CAMINHO_ABAQUS = "abaqus" 
-DIRETORIO_TRABALHO = r"C:\TestPython"
+
+# Pega a pasta onde o arquivo atual (definitions.py) está salvo
+DIRETORIO_ATUAL = os.path.dirname(os.path.abspath(__file__))
+# Pega a pasta principal do projeto 
+RAIZ_PROJETO = os.path.dirname(DIRETORIO_ATUAL)
+
+# Caminhos Dinâmicos baseados na estrutura de pastas
+CAMINHO_SCRIPT_ABAQUS = os.path.join(RAIZ_PROJETO, "IntegracaoAbaqus.py")
+DIRETORIO_TRABALHO = os.path.join(RAIZ_PROJETO, "TempAbaqus")
+
+# Cria a pasta temporária automaticamente se não existir no PC do professor
+if not os.path.exists(DIRETORIO_TRABALHO):
+    os.makedirs(DIRETORIO_TRABALHO)
+
 ARQUIVO_INPUT = os.path.join(DIRETORIO_TRABALHO, "input_params.txt")
 ARQUIVO_OUTPUT = os.path.join(DIRETORIO_TRABALHO, "output_result.txt")
+CAMINHO_ABAQUS = "abaqus"
 
 QD_LIMITE = 2.406
 
@@ -65,7 +77,6 @@ def checar_restricoes(valores):
     pressao_solo = forca_total / area_base
     
     if pressao_solo > QD_LIMITE:
-        # Se a pressão no solo for maior que o qd, temos uma violação
         v += (pressao_solo - QD_LIMITE) * 1000 
 
     return v

@@ -1,6 +1,7 @@
 from core.nsga2_logic import criar_populacao_inicial, classificar_populacao_rank, calcular_crowding_distance_todas_frentes, selecao_elitista
 from core.operators import selecao_pais, cruzamento_dois_pontos, mutacao_bit_flip
 import matplotlib.pyplot as plt
+import os
 
 TAMANHO_POP = 20
 GERACOES = 10

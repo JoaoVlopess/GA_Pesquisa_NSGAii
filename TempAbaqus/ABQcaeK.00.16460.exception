@@ -1,0 +1,89 @@
+<Description>
+   ABAQUS/ABQcaeK rank 0 received the INTERRUPT signal
+
+</Description>
+
+<Context>
+   CAE
+</Context>
+
+<Callstack>
+  1)  ucrtbase.dll                    Cbuild                                  
+  2)  KERNELBASE.dll                  CtrlRoutine                             
+  3)  KERNEL32.DLL                    BaseThreadInitThunk                     
+  4)  ntdll.dll                       RtlUserThreadStart                      
+</Callstack>
+
+<Memory>
+   <Current>            0 GB </Current>
+   <Resident>           0 GB </Resident>
+   <Physical>          15 GB </Physical>
+   <Limit>              0 GB </Limit>
+   <Accessible>        15 GB </Accessible>
+   <Free>               3 GB </Free>
+   <Allocator>            DL </Allocator>
+</Memory>
+
+<Swap>
+       <Size>          30 GB </Size>
+       <Used>          27 GB </Used>
+       <Free>           3 GB </Free>
+</Swap>
+
+<Directories>
+  <current> C:\Users\caioj\OneDrive\Área de Trabalho\pesquisa\nsga2_first\TempAbaqus </current> <free>    161 GB </free>   <used>    769 GB </used> 
+     <temp> C:\Users\caioj\AppData\Local\Temp </temp>    <free>    161 GB </free>
+</Directories>
+
+<Installation>
+     <Version> Learning Edition 2025 2025 HF2 </Version>
+       <Build> 2025_03_14-10.12.51 RELr427 199052 </Build>
+</Installation>
+
+<Description>
+   ABQcaeK.exe / rank 0 / thread 0  encountered a system exception 0xC0000005 (EXCEPTION_ACCESS_VIOLATION)
+</Description>
+
+<Context>
+   CAE
+</Context>
+
+<Callstack>
+  1)  python310.dll                   PyErr_Fetch                             
+  2)  python310.dll                   PyDict_GetItem                          
+  3)  python310.dll                   PyDict_GetItemString                    
+  4)  ABQSMAPybPyoModule.dll          pyo_Module::~pyo_Module                 
+  5)  odbSection.pyd                  DASSAULT_SYSTEMES_CAA2_INTERNAL_SMAPyqOdbSection
+  6)  odbSection.pyd                  SMAPyqOdbSection_finalize               
+  7)  odbSection.pyd                  DllMain                                 
+  8)  odbSection.pyd                  DASSAULT_SYSTEMES_CAA2_INTERNAL_SMAPyqOdbSection
+  9)  ntdll.dll                       RtlEncodeRemotePointer                  
+ 10)  ntdll.dll                       RtlRaiseException                       
+</Callstack>
+
+<Memory>
+   <Current>            0 GB </Current>
+   <Resident>           0 GB </Resident>
+   <Physical>          15 GB </Physical>
+   <Limit>              0 GB </Limit>
+   <Accessible>        15 GB </Accessible>
+   <Free>               3 GB </Free>
+   <Allocator>            DL </Allocator>
+</Memory>
+
+<Swap>
+       <Size>          30 GB </Size>
+       <Used>          27 GB </Used>
+       <Free>           3 GB </Free>
+</Swap>
+
+<Directories>
+  <current> C:\Users\caioj\OneDrive\Área de Trabalho\pesquisa\nsga2_first\TempAbaqus </current> <free>    161 GB </free>   <used>    769 GB </used> 
+     <temp> C:\Users\caioj\AppData\Local\Temp </temp>    <free>    161 GB </free>
+</Directories>
+
+<Installation>
+     <Version> Learning Edition 2025 2025 HF2 </Version>
+       <Build> 2025_03_14-10.12.51 RELr427 199052 </Build>
+</Installation>
+

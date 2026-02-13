@@ -25,13 +25,12 @@ import connectorBehavior
 import shutil
 import math
 from odbAccess import openOdb
+import os
 
 
-# CHANGE WORK DIRECTORY
-path = r"C:\TestPython"
+path = os.getcwd() # Pega o diretório de trabalho atual (que o Python definiu)
 os.chdir(path)
 
-# VERY IMPORTANT
 session.journalOptions.setValues(replayGeometry=COORDINATE, recoverGeometry=COORDINATE)
 
 
@@ -58,7 +57,7 @@ def CalculateDisplacement():
     Load_Mx = -64215 * 1000000      # -64.215.000.000 N.mm
     Load_My = 0.0
     Load_Mz = 3060 * 1000000        # 3.060.000.000 N.mm
-    CurrentFolder = r"C:\TestPython"
+    CurrentFolder = os.getcwd()
     Mdb()
 
     #CREATES MATERIAL
@@ -377,7 +376,7 @@ def CalculateDisplacement():
 
     # 5. Salva o resultado para o seu NSGA-II
     # Usamos o caminho absoluto para evitar erro de pasta
-    with open(r"C:\TestPython\output_result.txt", "w") as f:
+    with open("output_result.txt", "w") as f:
         f.write("{:.10f}".format(max_displacement))
 
     odb.close()

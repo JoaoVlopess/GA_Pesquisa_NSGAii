@@ -1,0 +1,173 @@
+# -*- coding: mbcs -*-
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+mdb.models['Model-1'].Material(name='Concrete')
+mdb.models['Model-1'].materials['Concrete'].Density(table=((2.5e-09, ), ))
+mdb.models['Model-1'].materials['Concrete'].Elastic(table=((30672.4632202893, 
+    0.2), ))
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0)
+mdb.models['Model-1'].sketches['__profile__'].CircleByCenterPerimeter(center=(
+    0.0, 0.0), point1=(7168.62745098039, 0.0))
+mdb.models['Model-1'].Part(dimensionality=THREE_D, name='Part-1', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['Part-1'].BaseShell(sketch=
+    mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].ConstrainedSketch(gridSpacing=2.82, name='__profile__', 
+    sheetSize=112.82, transform=
+    mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].faces.findAt((738.409261, 
+    7025.494629, 0.0), (0.0, 0.0, 1.0)), sketchPlaneSide=SIDE1, 
+    sketchUpEdge=mdb.models['Model-1'].parts['Part-1'].edges.findAt((0.0, 
+    7168.627451, 0.0), ), sketchOrientation=RIGHT, origin=(0.0, 0.0, 0.0)))
+mdb.models['Model-1'].parts['Part-1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__profile__'])
+mdb.models['Model-1'].sketches['__profile__'].CircleByCenterPerimeter(center=(
+    0.0, 0.0), point1=(1505.88235294118, 0.0))
+mdb.models['Model-1'].parts['Part-1'].PartitionFaceBySketch(faces=
+    mdb.models['Model-1'].parts['Part-1'].faces.findAt(((738.409261, 
+    7025.494629, 0.0), (0.0, 0.0, 1.0)), ), sketch=
+    mdb.models['Model-1'].sketches['__profile__'], sketchUpEdge=
+    mdb.models['Model-1'].parts['Part-1'].edges.findAt((0.0, 7168.627451, 0.0), 
+    ))
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['Part-1'].CompositeLayup(description='', 
+    elementType=SHELL, name='CompositeLayup-1', offsetType=MIDDLE_SURFACE, 
+    symmetric=False, thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].Section(
+    integrationRule=SIMPSON, poissonDefinition=DEFAULT, preIntegrate=OFF, 
+    temperature=GRADIENT, thicknessType=UNIFORM, useDensity=OFF)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].ReferenceOrientation(
+    additionalRotationType=ROTATION_NONE, angle=0.0, axis=AXIS_3, fieldName='', 
+    localCsys=None, orientationType=GLOBAL)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].suppress(
+    )
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-1', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    505.882352941176, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-2', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    621.764705882353, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-3', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    737.64705882353, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-4', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    853.529411764706, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-5', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    969.411764705882, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-6', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    1085.29411764706, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-7', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    1201.17647058824, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-8', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    1317.05882352941, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-9', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    1432.94117647059, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-10', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    1548.82352941176, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].CompositePly(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, material='Concrete', numIntPoints=3, orientationType=
+    SPECIFY_ORIENT, orientationValue=0.0, plyName='Ply-11', region=Region(
+    faces=mdb.models['Model-1'].parts['Part-1'].faces.findAt(((5228.828451, 
+    -496.813802, 0.0), (0.0, 0.0, 1.0)), )), suppressed=False, thickness=
+    1664.70588235294, thicknessType=SPECIFY_THICKNESS)
+mdb.models['Model-1'].parts['Part-1'].compositeLayups['CompositeLayup-1'].resume(
+    )
+mdb.models['Model-1'].HomogeneousShellSection(idealization=NO_IDEALIZATION, 
+    integrationRule=SIMPSON, material='Concrete', name='Section-1', 
+    nodalThicknessField='', numIntPts=5, poissonDefinition=DEFAULT, 
+    preIntegrate=OFF, temperature=GRADIENT, thickness=1376.47058823529, 
+    thicknessField='', thicknessModulus=None, thicknessType=UNIFORM, 
+    useDensity=OFF)
+mdb.models['Model-1'].parts['Part-1'].Set(faces=
+    mdb.models['Model-1'].parts['Part-1'].faces.findAt(((354.93986, 
+    1282.442464, 0.0), (0.0, 0.0, 1.0)), ), name='Set-12')
+mdb.models['Model-1'].parts['Part-1'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Part-1'].sets['Set-12'], sectionName=
+    'Section-1', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].rootAssembly.DatumCsysByDefault(CARTESIAN)
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-1', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].StaticStep(name='Step-1', previous='Initial')
+mdb.models['Model-1'].parts['Part-1'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=1000)
+mdb.models['Model-1'].parts['Part-1'].generateMesh()
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].rootAssembly.Set(edges=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].edges.findAt(((
+    0.0, 7168.627451, 0.0), ), ), name='Set-1')
+mdb.models['Model-1'].EncastreBC(createStepName='Step-1', localCsys=None, name=
+    'BC-1', region=mdb.models['Model-1'].rootAssembly.sets['Set-1'])
+mdb.models['Model-1'].rootAssembly.Set(name='Set-2', nodes=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].nodes[224:225], ))
+mdb.models['Model-1'].ConcentratedForce(cf1=0.0, cf2=750000, cf3=-2940000, 
+    createStepName='Step-1', distributionType=UNIFORM, field='', localCsys=None
+    , name='Load-1', region=mdb.models['Model-1'].rootAssembly.sets['Set-2'])
+mdb.models['Model-1'].Moment(cm1=-64215000000, cm2=0.0, cm3=3060000000, 
+    createStepName='Step-1', distributionType=UNIFORM, field='', localCsys=None
+    , name='Load-2', region=mdb.models['Model-1'].rootAssembly.sets['Set-2'])
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, name=
+    'Job-1', nodalOutputPrecision=SINGLE, queue=None, resultsFormat=ODB, 
+    scratch='', type=ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
