@@ -23,7 +23,7 @@ ARQUIVO_INPUT = os.path.join(DIRETORIO_TRABALHO, "input_params.txt")
 ARQUIVO_OUTPUT = os.path.join(DIRETORIO_TRABALHO, "output_result.txt")
 CAMINHO_ABAQUS = "abaqus"
 
-QD_LIMITE = 2.406
+QD_LIMITE = 2.406 # (capacidade de carga)
 
 
 def calcular_f1(valores):
@@ -67,7 +67,7 @@ def checar_restricoes(valores):
     v = 0
     
     # Restrições Geométricas 
-    if R_base < (R_ped + 500): v += abs((R_ped + 500) - R_base)
+    if R_base < (R_ped + 500): v += abs((R_ped + 500) - R_base)  # diferença entre o raio da base e do pedestal 500 mm
     if Hf < Hi: v += abs(Hi - Hf)
     
     # Restrição de Pressão no Solo (Usando qd)

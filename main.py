@@ -6,7 +6,7 @@ import os
 TAMANHO_POP = 20
 GERACOES = 10
 PC = 0.8 
-PM = 0.1
+PM = 0.15
 
 if __name__ == '__main__':
     populacao = criar_populacao_inicial(TAMANHO_POP)
