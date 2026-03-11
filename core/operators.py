@@ -101,31 +101,23 @@ def cruzamento_dois_pontos(pais_selecionados: list[cromossomo], pc):
 
 
 def mutacao_bit_flip(nova_prole: list[cromossomo], pm):
-  """
-  Faz a mutação em toda a lista de cromossomos e recebe nova prole/lista de cromossomos (pos cruzamento) e a probabilidade para mutação de um bit individual
-  return:
-     nova prole/lista de cromossomos (pos mutação)
-  """
-  for cromossomo in nova_prole:
+    """
+    Se o cromossomo for sorteado (probabilidade pm), 
+    altera obrigatoriamente 1 bit aleatório de CADA um dos 5 atributos.
+    """
+    for cromossomo in nova_prole:
+        chance_mutacao = random.random()
 
-        # Converte a string binária imutável para uma lista mutável
-        lista_genes = list(cromossomo.genes_binario)
+        if chance_mutacao < pm:
+            bits = list(cromossomo.genes_binario)
+            
+            for inicio_bloco in range(0, len(bits), 8):
+                posicao_relativa = random.randint(0, 7)
+                posicao_real = inicio_bloco + posicao_relativa
+                
+                bits[posicao_real] = '1' if bits[posicao_real] == '0' else '0'
+            
+            cromossomo.genes_binario = "".join(bits)
+            cromossomo.recalcular_metricas() 
 
-        for i in range(len(lista_genes)):
-
-            probabilidade_mutacao = random.random()
-
-            if probabilidade_mutacao < pm:
-
-                if lista_genes[i] == '0':
-                    lista_genes[i] = '1'
-                else:
-                    lista_genes[i] = '0'
-
-
-        nova_string_binaria = "".join(lista_genes)
-
-        cromossomo.genes_binario = nova_string_binaria
-        cromossomo.recalcular_metricas()
-
-  return nova_prole
+    return nova_prole

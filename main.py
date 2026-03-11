@@ -3,7 +3,7 @@ from core.operators import selecao_pais, cruzamento_dois_pontos, mutacao_bit_fli
 import matplotlib.pyplot as plt
 import os
 
-TAMANHO_POP = 20
+TAMANHO_POP = 50
 GERACOES = 10
 PC = 0.8 
 PM = 0.15
