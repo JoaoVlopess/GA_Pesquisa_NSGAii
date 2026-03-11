@@ -1,0 +1,33 @@
+# Pastas que você já definiu
+/tempAbacus
+/results
+
+# Python (essencial para o seu projeto)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+
+# Distribuição / Pacotes
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+
+# VS Code (ajustes locais do seu editor)
+.vscode/
+
+# Logs de execução (comum em experimentos de IA)
+*.log
