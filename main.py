@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import os
 
 TAMANHO_POP = 50
-GERACOES = 10
+GERACOES = 20
 PC = 0.8 
 PM = 0.15
 
