@@ -6,8 +6,9 @@ def criar_populacao_inicial(tamanho):
     populacao = []
     
     limites_reais = [
-        (5000, 12000), (1500, 3000), (400, 1000), 
-        (1500, 3500), (1000, 3000)
+            (100, 500), # Limites para A (Comprimento)
+            (100, 500),  # Limites para B (Largura)
+            (30, 150)  
     ]
     for _ in range(tamanho):
         

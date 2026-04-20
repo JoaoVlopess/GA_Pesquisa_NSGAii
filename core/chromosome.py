@@ -1,5 +1,6 @@
 import random
-from problem.definitions import calcular_f1, calcular_f2, checar_restricoes
+from problem.definitions import calcular_f1, calcular_f2
+from problem.restrictions import checar_restricoes_sapata
 
 def cria_cromossomo_aleatorio(tamanho):
     """
@@ -12,11 +13,9 @@ class cromossomo:
     def __init__(self, n_bits_por_gene=8, limites=None, binario_input=None):
         self.n_bits_por_gene = n_bits_por_gene
         self.limites = limites if limites else [
-            (5000, 12000), # R_base
-            (1500, 3000),  # R_pedestal
-            (400, 1000),   # Hi_base
-            (1500, 3500),  # Hf_base
-            (1000, 3000)   # H_pedestal
+            (100, 500), # Limites para A (Comprimento)
+            (100, 500),  # Limites para B (Largura)
+            (30, 150)   # Limites para h (Altura)
         ] 
 
         self.total_bits = len(self.limites) * self.n_bits_por_gene
@@ -64,7 +63,7 @@ class cromossomo:
 
         self.f1 = calcular_f1(self.valores)
         self.f2 = calcular_f2(self.valores)
-        self.viol_total = checar_restricoes(self.valores)
+        self.viol_total = checar_restricoes_sapata(self.valores)
 
         self.rank = 0
         self.crowding_distance = 0.0
