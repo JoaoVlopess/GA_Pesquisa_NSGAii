@@ -2,7 +2,7 @@ import numpy as np
 from problem.calculate_f2 import calcular_momentos_ceb70,calcular_peso_armadura_direcao
 import config as cfg
 
-def calcular_f1_sapata(valores):
+def calcular_f1(valores):
     """Minimizar Volume de Concreto (m³) para Sapata Retangular"""
     A, B, h = valores
     # A, B, h estão em cm, convertemos para metros (/100)
