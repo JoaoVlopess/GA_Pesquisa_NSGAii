@@ -1,4 +1,5 @@
 from math import pi, tan, radians
+import config as cfg
 
 def fcd_kN_cm2(fck, gamma_c):
     return (fck / gamma_c) * 0.1
@@ -17,16 +18,16 @@ def checar_restricoes_sapata(valores):
     v = 0 significa que atende a todas as normas.
     """
     A, B, h = valores
-    
-    # Derivando a altura útil 'd' (assumindo cobrimento aproximado de 5cm)
-    d = h - 5.0
 
-    ap, bp = 80.0, 20.0
-    N, H, M = 1250.0, 0.0, 0.0
-    P, h_H = 100.0, 0.0
-    padm = 0.04
-    fck, gamma_c, gamma_f = 25.0, 1.4, 1.4
+    ap, bp = cfg.AP, cfg.BP
+    N, H, M = cfg.NK, cfg.H, cfg.M
+    P, h_H = cfg.P_SOLO_SOBRE, 0.0 # braço h_H considerado 0
+    padm = cfg.PADM
+    fck, gamma_c, gamma_f = cfg.FCK, cfg.GAMMA_C, cfg.GAMMA_F
+    cobrimento = cfg.COBRIMENTO
 
+    # Derivando a altura útil 'd'
+    d = h - cobrimento
     v = 0.0
 
     # Penalidade Multiplicadora (Para colocar os erros na mesma grandeza)
