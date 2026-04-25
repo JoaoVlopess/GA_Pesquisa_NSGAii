@@ -13,9 +13,9 @@ class cromossomo:
     def __init__(self, n_bits_por_gene=8, limites=None, binario_input=None):
         self.n_bits_por_gene = n_bits_por_gene
         self.limites = limites if limites else [
-            (100, 500), # Limites para A (Comprimento)
-            (100, 500),  # Limites para B (Largura)
-            (30, 150)   # Limites para h (Altura)
+            (50, 500), # Limites para A (Comprimento)
+            (50, 500),  # Limites para B (Largura)
+            (15, 200)   # Limites para h (Altura)
         ] 
 
         self.total_bits = len(self.limites) * self.n_bits_por_gene

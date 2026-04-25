@@ -37,7 +37,8 @@ def calcular_peso_armadura_direcao(md, fyd, h, cobrimento, diametro_mm,
                                    dimensao_perpendicular, dimensao_barra,
                                    espacamento, fck, gama_c):
     """
-    retorna APENAS o peso.
+    Retorna APENAS o peso.
+    Atualizado com a verificação de armadura mínima exigida pela norma.
     """
     d = altura_util(h, cobrimento, diametro_mm)
     As = calcular_area_aco(md, d, fyd)
@@ -46,7 +47,21 @@ def calcular_peso_armadura_direcao(md, fyd, h, cobrimento, diametro_mm,
     n_barras_area = math.ceil(As / a_barra)
     largura_util = dimensao_perpendicular - 2 * cobrimento
     n_barras_espacamento = math.floor(largura_util / espacamento) + 1
-    n_barras = max(n_barras_area, n_barras_espacamento)
+    
+    # --- NOVIDADE AQUI: Cálculo da Armadura Mínima ---
+    # Área mínima de aço por metro de sapata (Fórmula em m²/m)
+    As_min_m2_m = 0.0015 * 0.67 * (0.01 * h)
+    
+    # Conversão para cm²/m e depois para a área total da direção
+    As_min_cm2_m = As_min_m2_m * 10000
+    As_min_total = As_min_cm2_m * (dimensao_perpendicular / 100)
+    
+    # Número de barras exigidas pela área mínima
+    n_barras_minima = math.ceil(As_min_total / a_barra)
+    # -------------------------------------------------
+
+    # O algoritmo agora adota o maior valor entre as TRÊS restrições
+    n_barras = max(n_barras_area, n_barras_espacamento, n_barras_minima)
 
     comprimento_reto_cm = dimensao_barra - 2 * cobrimento
     fctd, fbd = calcular_resistencias_ancoragem(fck, gama_c)

@@ -103,7 +103,7 @@ def cruzamento_dois_pontos(pais_selecionados: list[cromossomo], pc):
 def mutacao_bit_flip(nova_prole: list[cromossomo], pm):
     """
     Se o cromossomo for sorteado (probabilidade pm), 
-    altera obrigatoriamente 1 bit aleatório de CADA um dos 5 atributos.
+    altera obrigatoriamente 1 bit aleatório de CADA um dos 3 atributos.
     """
     for cromossomo in nova_prole:
         chance_mutacao = random.random()

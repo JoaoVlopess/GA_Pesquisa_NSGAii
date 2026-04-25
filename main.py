@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import os
 
 TAMANHO_POP = 50
-GERACOES = 20
+GERACOES = 50
 PC = 0.8 
 PM = 0.15
 
@@ -38,8 +38,8 @@ if __name__ == '__main__':
     frente_pareto.sort(key=lambda x: x.f1) 
 
 
-print("\n--- Top 5 Soluções na Frente de Pareto ---")
-for i, ind in enumerate(frente_pareto[:5], 1):
+print("\n--- Top 10 Soluções na Frente de Pareto ---")
+for i, ind in enumerate(frente_pareto[:10], 1):
     # Agora descompactamos apenas 3 valores: A, B, h
     a_sap, b_sap, h_sap = ind.valores 
     print(f"{i}. A={a_sap:7.1f}cm | B={b_sap:7.1f}cm | h={h_sap:7.1f}cm | f1={ind.f1:8.2f}m³ | f2={ind.f2:8.2f}kg | Viol={ind.viol_total:.2f}")
